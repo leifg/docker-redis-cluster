@@ -23,7 +23,7 @@ RUN add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu precise universe
 RUN apt-get update && apt-get -y upgrade
 
 # Install system dependencies
-RUN apt-get install -y gcc make g++ build-essential libc6-dev tcl git supervisor ruby
+RUN apt-get install -y gcc make g++ build-essential libc6-dev tcl git ruby
 
 # Must be installed seperate from ruby or it will complain about broken package
 RUN apt-get install -y rubygems
@@ -51,12 +51,11 @@ RUN mkdir /redis-data && \
 # Add all config files for all clusters
 ADD ./docker-data/redis-conf /redis-conf
 
-# Add supervisord configuration
-ADD ./docker-data/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 # Add startup script
 ADD ./docker-data/start.sh /start.sh
+ADD ./docker-data/wait-for-it.sh /wait-for-it.sh
 RUN chmod 755 /start.sh
+RUN chmod 755 /wait-for-it.sh
 
 EXPOSE 7000 7001 7002 7003 7004 7005 7006 7007
 
