@@ -32,7 +32,7 @@ RUN apt-get install -y rubygems
 RUN gem install redis
 
 # checkout the 3.0.6 tag (Will change to 3.2 tag when it is released as stable)
-RUN git clone -b 3.0.6 https://github.com/antirez/redis.git
+RUN git clone -b 3.2 https://github.com/antirez/redis.git
 
 # Build redis from source
 RUN (cd /redis && make)
